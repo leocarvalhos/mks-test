@@ -3,8 +3,9 @@ import { AuthService } from './auth.service';
 import { JwtModule } from '@nestjs/jwt';
 import { UsersModule } from 'src/users/users.module';
 import { AuthController } from './auth.controller';
-import { jwtConstants } from './constants';
 import { MoviesModule } from 'src/movies/movies.module';
+import { config } from 'dotenv';
+config();
 
 @Module({
   imports: [
@@ -12,7 +13,7 @@ import { MoviesModule } from 'src/movies/movies.module';
     forwardRef(() => MoviesModule),
     JwtModule.register({
       global: true,
-      secret: jwtConstants.secret,
+      secret: process.env.JWT_PASS,
       signOptions: { expiresIn: '2h' },
     }),
   ],

@@ -1,10 +1,10 @@
 import { Module } from '@nestjs/common';
 import { TypeOrmModule } from '@nestjs/typeorm';
-import { User } from './users/entities/user.entity';
-import { Movie } from './movies/entities/movie.entity';
-import { UsersModule } from './users/users.module';
-import { MoviesModule } from './movies/movies.module';
 import { AuthModule } from './auth/auth.module';
+import { Movie } from './movies/entities/movie.entity';
+import { MoviesModule } from './movies/movies.module';
+import { UsersModule } from './users/users.module';
+import { User } from './users/entities/user.entity';
 
 @Module({
   imports: [
@@ -19,7 +19,6 @@ import { AuthModule } from './auth/auth.module';
       synchronize: true,
       autoLoadEntities: true,
     }),
-    TypeOrmModule.forFeature([User, Movie]),
     UsersModule,
     MoviesModule,
     AuthModule,
