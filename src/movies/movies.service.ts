@@ -40,6 +40,6 @@ export class MoviesService {
   }
 
   async remove(id: string) {
-    // return await this.movieRepository.remove({ id });
+    return await this.movieRepository.delete({ id });
   }
 }
