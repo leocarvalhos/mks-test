@@ -1,13 +1,14 @@
-import { Inject, Injectable } from '@nestjs/common';
+import { Injectable } from '@nestjs/common';
+import { ILike, Repository } from 'typeorm';
 import { CreateMovieDto } from './dto/create-movie.dto';
 import { UpdateMovieDto } from './dto/update-movie.dto';
 import { Movie } from './entities/movie.entity';
-import { ILike, Repository } from 'typeorm';
+import { InjectRepository } from '@nestjs/typeorm';
 
 @Injectable()
 export class MoviesService {
   constructor(
-    @Inject('MOVIE_REPOSITORY')
+    @InjectRepository(Movie)
     private movieRepository: Repository<Movie>,
   ) {}
 
@@ -39,6 +40,6 @@ export class MoviesService {
   }
 
   async remove(id: string) {
-    return await this.movieRepository.remove(id);
+    // return await this.movieRepository.remove({ id });
   }
 }
