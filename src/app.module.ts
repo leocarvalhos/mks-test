@@ -5,20 +5,22 @@ import { Movie } from './movies/entities/movie.entity';
 import { MoviesModule } from './movies/movies.module';
 import { UsersModule } from './users/users.module';
 import { User } from './users/entities/user.entity';
+import { ConfigModule } from '@nestjs/config';
 
 @Module({
   imports: [
     TypeOrmModule.forRoot({
       type: 'postgres',
-      host: 'kesavan.db.elephantsql.com',
-      port: 5432,
-      username: 'swzgjfsv',
-      password: 'Gc5t70p8BvwaRwrT4waMHr984n2m2M85',
-      database: 'swzgjfsv',
+      host: process.env.DB_HOST,
+      port: parseInt(process.env.DB_PORT),
+      username: process.env.DB_USERNAME,
+      password: process.env.DB_PASS,
+      database: process.env.DB_NAME,
       entities: [User, Movie],
       synchronize: true,
       autoLoadEntities: true,
     }),
+    ConfigModule.forRoot(),
     UsersModule,
     MoviesModule,
     AuthModule,
