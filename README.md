@@ -1,73 +1,91 @@
-<p align="center">
-  <a href="http://nestjs.com/" target="blank"><img src="https://nestjs.com/img/logo-small.svg" width="200" alt="Nest Logo" /></a>
-</p>
+# Sistema de Autenticação JWT e CRUD de Catálogo de Filmes
 
-[circleci-image]: https://img.shields.io/circleci/build/github/nestjs/nest/master?token=abc123def456
-[circleci-url]: https://circleci.com/gh/nestjs/nest
+## Sumário
 
-  <p align="center">A progressive <a href="http://nodejs.org" target="_blank">Node.js</a> framework for building efficient and scalable server-side applications.</p>
-    <p align="center">
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/v/@nestjs/core.svg" alt="NPM Version" /></a>
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/l/@nestjs/core.svg" alt="Package License" /></a>
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/dm/@nestjs/common.svg" alt="NPM Downloads" /></a>
-<a href="https://circleci.com/gh/nestjs/nest" target="_blank"><img src="https://img.shields.io/circleci/build/github/nestjs/nest/master" alt="CircleCI" /></a>
-<a href="https://coveralls.io/github/nestjs/nest?branch=master" target="_blank"><img src="https://coveralls.io/repos/github/nestjs/nest/badge.svg?branch=master#9" alt="Coverage" /></a>
-<a href="https://discord.gg/G7Qnnhy" target="_blank"><img src="https://img.shields.io/badge/discord-online-brightgreen.svg" alt="Discord"/></a>
-<a href="https://opencollective.com/nest#backer" target="_blank"><img src="https://opencollective.com/nest/backers/badge.svg" alt="Backers on Open Collective" /></a>
-<a href="https://opencollective.com/nest#sponsor" target="_blank"><img src="https://opencollective.com/nest/sponsors/badge.svg" alt="Sponsors on Open Collective" /></a>
-  <a href="https://paypal.me/kamilmysliwiec" target="_blank"><img src="https://img.shields.io/badge/Donate-PayPal-ff3f59.svg"/></a>
-    <a href="https://opencollective.com/nest#sponsor"  target="_blank"><img src="https://img.shields.io/badge/Support%20us-Open%20Collective-41B883.svg" alt="Support us"></a>
-  <a href="https://twitter.com/nestframework" target="_blank"><img src="https://img.shields.io/twitter/follow/nestframework.svg?style=social&label=Follow"></a>
-</p>
-  <!--[![Backers on Open Collective](https://opencollective.com/nest/backers/badge.svg)](https://opencollective.com/nest#backer)
-  [![Sponsors on Open Collective](https://opencollective.com/nest/sponsors/badge.svg)](https://opencollective.com/nest#sponsor)-->
+1. [Visão Geral](#visão-geral)
+2. [Ferramentas Utilizadas](#ferramentas-utilizadas)
+3. [Arquitetura do Sistema](#arquitetura-do-sistema)
+4. [Configuração do Ambiente](#configuração-do-ambiente)
+5. [Endpoints da API](#endpoints-da-api)
+6. [Autenticação e Autorização](#autenticação-e-autorização)
+7. [Cache com Redis](#cache-com-redis)
+8. [Testes](#testes)
+9. [Documentação com Swagger](#documentação-com-swagger)
+10. [Deploy](#deploy)
+11. [Experiência com Ferramentas](#experiência-com-ferramentas)
 
-## Description
+## Visão Geral
 
-[Nest](https://github.com/nestjs/nest) framework TypeScript starter repository.
+Este projeto é um teste back-end para a empresa MKS e consiste no desenvolvimento de um sistema de autenticação JWT juntamente com uma API CRUD para um catálogo de filmes. Todos os endpoints desta API são protegidos e requerem autenticação. A aplicação foi desenvolvida utilizando TypeScript, Nest.js, TypeORM, Swagger, Docker, Redis e PostgreSQL.
 
-## Installation
+## Ferramentas Utilizadas
 
-```bash
-$ yarn install
-```
+- **TypeScript**: Linguagem de programação utilizada para desenvolvimento do projeto.
+- **Nest.js**: Framework para construção de aplicações Node.js eficientes, confiáveis e escaláveis.
+- **TypeORM**: ORM utilizado para interagir com o banco de dados PostgreSQL.
+- **Swagger**: Ferramenta para documentação e teste dos endpoints da API.
+- **Docker**: Utilizado para containerização da aplicação.
+- **Redis**: Utilizado como cache para otimização de performance.
+- **PostgreSQL**: Banco de dados relacional utilizado para armazenar os dados.
 
-## Running the app
+## Arquitetura do Sistema
 
-```bash
-# development
-$ yarn run start
+A arquitetura do sistema é composta por uma aplicação back-end que provê uma API RESTful em JSON. Os principais componentes são:
 
-# watch mode
-$ yarn run start:dev
+- **Autenticação JWT**: Sistema de autenticação baseado em JSON Web Tokens.
+- **CRUD de Usuários**: Endpoints para criação, leitura, atualização e exclusão de filmes.
+- **CRUD de Filmes**: Endpoints para criação, leitura, atualização e exclusão de filmes.
+- **Cache com Redis**: Implementação de cache para melhorar a performance nas requisições de leitura.
 
-# production mode
-$ yarn run start:prod
-```
+## Links
 
-## Test
+<p>Deploy: <a>www.linkdeploy.com.br</a></p>
+<p>Swagger: <a>http://localhost:3000/api#/</a></p>
 
-```bash
-# unit tests
-$ yarn run test
+## Configuração do Ambiente
 
-# e2e tests
-$ yarn run test:e2e
+### Pré-requisitos
 
-# test coverage
-$ yarn run test:cov
-```
+- Git
+- Node.js
+- Docker
+- Docker Compose
 
-## Support
+### Passos para Configuração
 
-Nest is an MIT-licensed open source project. It can grow thanks to the sponsors and support by the amazing backers. If you'd like to join them, please [read more here](https://docs.nestjs.com/support).
+1. Clone o repositório:
 
-## Stay in touch
+   ```bash
+   git clone <link-do-repositório>
+   cd <nome-do-repositório>
+   ```
 
-- Author - [Kamil Myśliwiec](https://kamilmysliwiec.com)
-- Website - [https://nestjs.com](https://nestjs.com/)
-- Twitter - [@nestframework](https://twitter.com/nestframework)
+2. Configure as variáveis de ambiente no arquivo `.env`:
+   ```bash
+   POSTGRES_HOST=localhost
+   POSTGRES_PORT=5432
+   POSTGRES_USER=postgres
+   POSTGRES_PASSWORD=postgres
+   POSTGRES_DB=postgres
+   JWT_SECRET=@saioduasi7221
+   REDIS_HOST=localhost
+   REDIS_PORT=6379
+   ```
+3. Execute o Docker Compose para subir os containers do PostgreSQL e Redis:
 
-## License
+   ```bash
+   docker-compose up -d
+   ```
 
-Nest is [MIT licensed](LICENSE).
+4. Instale as dependências do projeto:
+   ```bash
+   yarn add
+   ```
+5. Execute as migrações do TypeORM:
+   ```bash
+   yarn add typeorm migration:run
+   ```
+6. Inicie a aplicação:
+   ```bash
+   yarn run start:dev
+   ```
