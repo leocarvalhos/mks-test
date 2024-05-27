@@ -6,13 +6,9 @@
 2. [Ferramentas Utilizadas](#ferramentas-utilizadas)
 3. [Arquitetura do Sistema](#arquitetura-do-sistema)
 4. [Configuração do Ambiente](#configuração-do-ambiente)
-5. [Endpoints da API](#endpoints-da-api)
-6. [Autenticação e Autorização](#autenticação-e-autorização)
-7. [Cache com Redis](#cache-com-redis)
-8. [Testes](#testes)
-9. [Documentação com Swagger](#documentação-com-swagger)
-10. [Deploy](#deploy)
-11. [Experiência com Ferramentas](#experiência-com-ferramentas)
+5. [Documentação com Swagger](#documentação-com-swagger)
+6. [Deploy](#deploy)
+7. [Experiência com Ferramentas](#experiência-com-ferramentas)
 
 ## Visão Geral
 
@@ -32,18 +28,46 @@ Este projeto é um teste back-end para a empresa MKS e consiste no desenvolvimen
 
 A arquitetura do sistema é composta por uma aplicação back-end que provê uma API RESTful em JSON. Os principais componentes são:
 
-- **Autenticação JWT**: Sistema de autenticação baseado em JSON Web Tokens.
-- **CRUD de Usuários**: Endpoints para criação, leitura, atualização e exclusão de filmes.
-- **CRUD de Filmes**: Endpoints para criação, leitura, atualização e exclusão de filmes.
-- **Cache com Redis**: Implementação de cache para melhorar a performance nas requisições de leitura.
+- **auth**: Contém os controladores e serviços responsáveis pela autenticação do usuário. Aqui você tem a lógica para lidar com o login e possivelmente outras operações relacionadas à autenticação, como registro, recuperação de senha, etc.
+
+- **movies**: Aqui reside a lógica para manipulação de filmes. Você implementou as operações CRUD (Create, Read, Update, Delete) seguindo os padrões do NestJS. Isso significa que tem controladores para manipular as solicitações HTTP relacionadas aos filmes e serviços para realizar as operações de banco de dados.
+
+- **users**: Similar ao diretório movies, este é dedicado à manipulação de usuários. Você implementou todas as operações CRUD para lidar com dados de usuário.
+
+## Módulos
+
+### Autenticação (Auth)
+
+- **auth.module.ts**: Gerencia tudo relacionado à autenticação.
+- **auth.controller.ts**: Controla as solicitações de autenticação dos usuários.
+- **auth.service.ts**: Aqui está a lógica real da autenticação.
+- **jwt.strategy.ts**: Define como vamos verificar se um usuário está autenticado ou não usando tokens.
+
+### Filmes (Movies)
+
+- **movies.module.ts**: Gerencia tudo relacionado aos filmes.
+- **movies.controller.ts**: Controla as solicitações de filmes, como adicionar ou excluir filmes.
+- **movies.service.ts**: Aqui está a lógica real dos filmes, como adicionar ou buscar filmes no banco de dados.
+- **movie.entity.ts**: Define como os dados de um filme são armazenados.
+- **movie.repository.ts**: Interage com o banco de dados para buscar, adicionar ou excluir filmes.
+
+### Usuários (Users)
+
+- **users.module.ts**: Gerencia tudo relacionado aos usuários.
+- **users.controller.ts**: Controla as solicitações de usuários, como criar ou excluir usuários.
+- **users.service.ts**: Aqui está a lógica real dos usuários, como criar ou autenticar usuários.
+- **user.entity.ts**: Define como os dados do usuário são armazenados.
+- **user.repository.ts**: Interage com o banco de dados para buscar, adicionar ou excluir usuários.
 
 ## Deploy
 
-<p>Deploy: <a>https://mks-test.up.railway.app/</a></p>
+<p>Deploy é o processo em que um desenvolvedor coloca seu projeto em um servidor ou plataforma de hospedagem na internet. Isso permite que outras pessoas acessem e usem o projeto pela internet. Em outras palavras, é como disponibilizar seu projeto online para que ele esteja disponível para uso público.<p>
+<p>Link do Deploy: <a>https://mks-test.up.railway.app/</a></p>
 
-## #Documentação-com-Swagger
+## Documentação-com-Swagger
 
-<p>Swagger: <a>https://mks-test.up.railway.app/api#/</a></p>
+<p>Swagger é uma ferramenta popular para documentar APIs. Ele permite que os desenvolvedores descrevam, documentem e testem APIs de forma eficiente. Com o Swagger, você pode criar uma documentação interativa para sua API, facilitando para outros desenvolvedores entenderem como usar seus endpoints.</p>
+<p>Link do Swagger: <a>https://mks-test.up.railway.app/api#/</a></p>
 
 ## Configuração do Ambiente
 
@@ -52,7 +76,6 @@ A arquitetura do sistema é composta por uma aplicação back-end que provê uma
 - Git
 - Node.js
 - Docker
-- Docker Compose
 
 ### Passos para Configuração
 
@@ -63,7 +86,7 @@ A arquitetura do sistema é composta por uma aplicação back-end que provê uma
    cd <mks-test>
    ```
 
-2. Configure as variáveis de ambiente no arquivo `.env`:
+2. Crie e configure com as variáveis de ambiente no arquivo `.env` com os dados abaixo:
    ```bash
    POSTGRES_HOST=localhost
    POSTGRES_PORT=5432
@@ -74,21 +97,23 @@ A arquitetura do sistema é composta por uma aplicação back-end que provê uma
    REDIS_HOST=localhost
    REDIS_PORT=6379
    ```
-3. Execute o Docker Compose para subir os containers do PostgreSQL e Redis:
+3. Execute o Docker Compose para executar o projeto no seu localhost:
 
    ```bash
-   docker-compose up -d
+   docker-compose up
    ```
 
-4. Instale as dependências do projeto:
+4. Agora o projeto estará disponível na porta 3000
    ```bash
-   yarn add
+      http://localhost:3000/
    ```
-5. Execute as migrações do TypeORM:
-   ```bash
-   yarn add typeorm migration:run
-   ```
-6. Inicie a aplicação:
-   ```bash
-   yarn run start:dev
-   ```
+
+## Experiência com Ferramentas
+
+- TypeScript - 2 anos
+- Nest.JS - 2 anos
+- TypeORM - 2 anos
+- Postgres - 2 anos
+- Swagger - Desenvolvi conhecimento para realizar o teste
+- Redis - Desenvolvi conhecimento para realizar o teste
+- Docker - Desenvolvi conhecimento para realizar o teste
