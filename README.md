@@ -37,10 +37,13 @@ A arquitetura do sistema é composta por uma aplicação back-end que provê uma
 - **CRUD de Filmes**: Endpoints para criação, leitura, atualização e exclusão de filmes.
 - **Cache com Redis**: Implementação de cache para melhorar a performance nas requisições de leitura.
 
-## Links
+## Deploy
 
-<p>Deploy: <a>www.linkdeploy.com.br</a></p>
-<p>Swagger: <a>http://localhost:3000/api#/</a></p>
+<p>Deploy: <a>https://mks-test.up.railway.app/</a></p>
+
+## #Documentação-com-Swagger
+
+<p>Swagger: <a>https://mks-test.up.railway.app/api#/</a></p>
 
 ## Configuração do Ambiente
 
@@ -67,7 +70,7 @@ A arquitetura do sistema é composta por uma aplicação back-end que provê uma
    POSTGRES_USER=postgres
    POSTGRES_PASSWORD=postgres
    POSTGRES_DB=postgres
-   JWT_SECRET=@saioduasi7221
+   JWT_PASS=XASZDSAFXCASDSAsadas233412312s@@112
    REDIS_HOST=localhost
    REDIS_PORT=6379
    ```

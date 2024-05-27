@@ -1,6 +1,7 @@
 version: '3.8'
 
 services:
+
   postgres:
     container_name: test-mkv
     image: postgres:16-alpine
@@ -11,3 +12,15 @@ services:
       POSTGRES_HOST_AUTH_METHOD: trust
     ports:
       - 5432:5432
+  
+  redis:
+    container_name: cache
+    image: redis
+    ports:
+      - 6379:6379
+    volumes:
+      - redis:/data
+
+volumes:
+  redis:
+    driver: local

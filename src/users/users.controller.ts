@@ -46,6 +46,8 @@ export class UsersController {
   }
 
   @Get(':id')
+  @UseInterceptors(CacheInterceptor)
+  @CacheTTL(30)
   @UseGuards(AuthGuard)
   @ApiOperation({ summary: 'Encontrar um usuário por ID' })
   @ApiResponse({
