@@ -7,12 +7,14 @@ import {
   Param,
   Delete,
   UseGuards,
+  UseInterceptors,
 } from '@nestjs/common';
 import { MoviesService } from './movies.service';
 import { CreateMovieDto } from './dto/create-movie.dto';
 import { UpdateMovieDto } from './dto/update-movie.dto';
 import { AuthGuard } from 'src/auth/auth.guard';
 import { ApiOperation, ApiResponse } from '@nestjs/swagger';
+import { CacheInterceptor, CacheTTL } from '@nestjs/cache-manager';
 
 @Controller('movies')
 export class MoviesController {
@@ -31,6 +33,8 @@ export class MoviesController {
   }
 
   @Get()
+  @UseInterceptors(CacheInterceptor)
+  @CacheTTL(30)
   @UseGuards(AuthGuard)
   @ApiOperation({ summary: 'Obter lista de todos os filmes' })
   @ApiResponse({
@@ -43,6 +47,8 @@ export class MoviesController {
   }
 
   @Get(':id')
+  @UseInterceptors(CacheInterceptor)
+  @CacheTTL(30)
   @UseGuards(AuthGuard)
   @ApiOperation({ summary: 'Obter um filme por ID' })
   @ApiResponse({
@@ -55,6 +61,8 @@ export class MoviesController {
   }
 
   @Get(':title')
+  @UseInterceptors(CacheInterceptor)
+  @CacheTTL(30)
   @UseGuards(AuthGuard)
   @ApiOperation({ summary: 'Obter um ou mais filmes por título' })
   @ApiResponse({

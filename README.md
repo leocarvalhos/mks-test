@@ -56,8 +56,8 @@ A arquitetura do sistema é composta por uma aplicação back-end que provê uma
 1. Clone o repositório:
 
    ```bash
-   git clone <link-do-repositório>
-   cd <nome-do-repositório>
+   git clone git@github.com:leocarvalhos/mks-test.git
+   cd <mks-test>
    ```
 
 2. Configure as variáveis de ambiente no arquivo `.env`:

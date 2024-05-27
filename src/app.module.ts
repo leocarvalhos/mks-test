@@ -1,12 +1,14 @@
 import { Module } from '@nestjs/common';
+import { ConfigModule } from '@nestjs/config';
 import { TypeOrmModule } from '@nestjs/typeorm';
+import { DataSource } from 'typeorm';
 import { AuthModule } from './auth/auth.module';
 import { Movie } from './movies/entities/movie.entity';
 import { MoviesModule } from './movies/movies.module';
-import { UsersModule } from './users/users.module';
 import { User } from './users/entities/user.entity';
-import { ConfigModule } from '@nestjs/config';
-
+import { UsersModule } from './users/users.module';
+import { CacheModule } from '@nestjs/cache-manager';
+import * as redisStore from 'cache-manager-redis-store';
 @Module({
   imports: [
     TypeOrmModule.forRoot({
@@ -20,10 +22,18 @@ import { ConfigModule } from '@nestjs/config';
       synchronize: true,
       autoLoadEntities: true,
     }),
+    CacheModule.register({
+      isGlobal: true,
+      store: redisStore,
+      host: process.env.REDIS_HOST,
+      port: parseInt(process.env.REDIS_PORT),
+    }),
     ConfigModule.forRoot(),
     UsersModule,
     MoviesModule,
     AuthModule,
   ],
 })
-export class AppModule {}
+export class AppModule {
+  constructor(private dataSource: DataSource) {}
+}
