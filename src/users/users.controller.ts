@@ -1,34 +1,22 @@
 import {
-  Controller,
-  Get,
-  Post,
   Body,
-  Param,
+  Controller,
   Delete,
+  Get,
+  Param,
+  Post,
   Put,
   UseGuards,
-  Request,
 } from '@nestjs/common';
-import { UsersService } from './users.service';
+import { ApiOperation, ApiResponse } from '@nestjs/swagger';
 import { CreateUserDto } from './dto/create-user.dto';
 import { UpdateUserDto } from './dto/update-user.dto';
-import { ApiOperation, ApiResponse } from '@nestjs/swagger';
+import { UsersService } from './users.service';
+import { AuthGuard } from 'src/auth/auth.guard';
 
 @Controller('users')
 export class UsersController {
   constructor(private readonly usersService: UsersService) {}
-
-  @Post('/login')
-  @ApiOperation({ summary: 'Login' })
-  @ApiResponse({
-    status: 200,
-    description: 'Usuário logado com sucesso',
-  })
-  @ApiResponse({ status: 500, description: 'Erro no servidor.' })
-  // @UseGuards(LocalAuthGuard)
-  validateUser(@Request() req: any) {
-    return req.user;
-  }
 
   @Post()
   @ApiOperation({ summary: 'Criar um usuário' })
@@ -42,7 +30,7 @@ export class UsersController {
   }
 
   @Get()
-  // @UseGuards(LocalAuthGuard)
+  @UseGuards(AuthGuard)
   @ApiOperation({ summary: 'Encontrar todos usuários' })
   @ApiResponse({
     status: 200,
@@ -54,7 +42,7 @@ export class UsersController {
   }
 
   @Get(':id')
-  // @UseGuards(LocalAuthGuard)
+  @UseGuards(AuthGuard)
   @ApiOperation({ summary: 'Encontrar um usuário por ID' })
   @ApiResponse({
     status: 200,
@@ -66,7 +54,7 @@ export class UsersController {
   }
 
   @Put(':id')
-  // @UseGuards(LocalAuthGuard)
+  @UseGuards(AuthGuard)
   @ApiOperation({ summary: 'Atualizar um usuário por ID' })
   @ApiResponse({
     status: 204,
@@ -78,7 +66,7 @@ export class UsersController {
   }
 
   @Delete(':id')
-  // @UseGuards(LocalAuthGuard)
+  @UseGuards(AuthGuard)
   @ApiOperation({ summary: 'Deletar um usuário por ID' })
   @ApiResponse({
     status: 204,

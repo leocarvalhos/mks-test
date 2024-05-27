@@ -13,7 +13,7 @@ export class MoviesService {
   ) {}
 
   async create(createMovieDto: CreateMovieDto) {
-    const movieRegistration = this.movieRepository.create(createMovieDto);
+    const movieRegistration = this.movieRepository.save(createMovieDto);
     return movieRegistration;
   }
 

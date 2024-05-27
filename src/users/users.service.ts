@@ -17,11 +17,12 @@ export class UsersService {
     const { username, password } = createUserDto;
     const encryptedPassword = await bcrypt.hash(password, 10);
 
-    this.userRepository.create({
+    const newUser = this.userRepository.save({
       username,
       password: encryptedPassword,
     });
-    return;
+
+    return newUser;
   }
 
   async findAll() {

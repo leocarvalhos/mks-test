@@ -13,7 +13,7 @@ config();
     forwardRef(() => MoviesModule),
     JwtModule.register({
       global: true,
-      secret: process.env.JWT_PASS,
+      secret: 'process.env.JWT_PASS',
       signOptions: { expiresIn: '2h' },
     }),
   ],
