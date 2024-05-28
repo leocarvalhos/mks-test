@@ -8,6 +8,7 @@ import {
   Delete,
   UseGuards,
   UseInterceptors,
+  Query,
 } from '@nestjs/common';
 import { MoviesService } from './movies.service';
 import { CreateMovieDto } from './dto/create-movie.dto';
@@ -34,16 +35,17 @@ export class MoviesController {
 
   @Get()
   @UseInterceptors(CacheInterceptor)
-  @CacheTTL(30)
+  @CacheTTL(15)
   @UseGuards(AuthGuard)
-  @ApiOperation({ summary: 'Obter lista de todos os filmes' })
+  @ApiOperation({ summary: 'Obter lista de todos os filmes ou um filme.' })
   @ApiResponse({
     status: 200,
-    description: 'Lista de filmes',
+    description:
+      'Listagem completa de filmes com a possibilidade de filtrar um filme pelo título. Key=Title  Value=Nome do filme. Ex: /movies?title=entrando%20numa%20fria',
   })
   @ApiResponse({ status: 500, description: 'Error do servidor' })
-  findAll() {
-    return this.moviesService.findAll();
+  findAll(@Query('title') title?: string) {
+    return this.moviesService.findAll(title);
   }
 
   @Get(':id')
@@ -58,20 +60,6 @@ export class MoviesController {
   @ApiResponse({ status: 404, description: 'Filme não encontrado' })
   findOne(@Param('id') id: string) {
     return this.moviesService.findOneByID(id);
-  }
-
-  @Get(':title')
-  @UseInterceptors(CacheInterceptor)
-  @CacheTTL(30)
-  @UseGuards(AuthGuard)
-  @ApiOperation({ summary: 'Obter um ou mais filmes por título' })
-  @ApiResponse({
-    status: 200,
-    description: 'Lista de filme ou filmes por título',
-  })
-  @ApiResponse({ status: 404, description: 'Filme ou Filmes não encontrado' })
-  findOneByTitle(@Param('title') title: string) {
-    return this.moviesService.findOneByTitle(title);
   }
 
   @Patch(':id')

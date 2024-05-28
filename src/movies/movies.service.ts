@@ -17,20 +17,23 @@ export class MoviesService {
     return movieRegistration;
   }
 
-  async findAll() {
-    const allMovies = await this.movieRepository.find();
+  async findAll(title: string) {
+    if (title) {
+      const movie = await this.movieRepository.findBy({
+        title: ILike(`%${title}%`),
+      });
+      return movie;
+    }
+    const allMovies = await this.movieRepository.find({
+      order: {
+        title: 'ASC',
+      },
+    });
     return allMovies;
   }
 
   async findOneByID(id: string) {
     const movie = await this.movieRepository.findOneBy({ id });
-    return movie;
-  }
-
-  async findOneByTitle(title: string) {
-    const movie = await this.movieRepository.findBy({
-      title: ILike(`% ${title} #%`),
-    });
     return movie;
   }
 
