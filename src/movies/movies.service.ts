@@ -14,7 +14,7 @@ export class MoviesService {
 
   async create(createMovieDto: CreateMovieDto) {
     const movieRegistration = this.movieRepository.save(createMovieDto);
-    if (movieRegistration) {
+    if (!movieRegistration) {
       throw new HttpException('Este filme já está cadastrado', 400);
     }
     return movieRegistration;
@@ -30,7 +30,7 @@ export class MoviesService {
       },
     });
 
-    if (movies) {
+    if (!movies) {
       throw new HttpException('Filme não encontrado', 404);
     }
     return movies;
@@ -38,7 +38,7 @@ export class MoviesService {
 
   async findOneByID(id: string) {
     const movie = await this.movieRepository.findOneBy({ id });
-    if (movie) {
+    if (!movie) {
       throw new HttpException('Filme não encontrado', 404);
     }
     return movie;

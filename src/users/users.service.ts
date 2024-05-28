@@ -22,7 +22,7 @@ export class UsersService {
       password: encryptedPassword,
     });
 
-    if (newUser) {
+    if (!newUser) {
       throw new HttpException('Este usuário já está cadastrado', 400);
     }
     return newUser;
@@ -48,7 +48,7 @@ export class UsersService {
 
   async findOneByUsername(username: string) {
     const user = await this.userRepository.findOneBy({ username });
-    if (user) {
+    if (!user) {
       throw new HttpException('Usuário não encontrado', 404);
     }
     return user;
