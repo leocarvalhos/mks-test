@@ -28,11 +28,11 @@ Este projeto é um teste back-end para a empresa MKS e consiste no desenvolvimen
 
 A arquitetura do sistema é composta por uma aplicação back-end que provê uma API RESTful em JSON. Os principais componentes são:
 
-- **auth**: Contém os controladores e serviços responsáveis pela autenticação do usuário. Aqui você tem a lógica para lidar com o login e possivelmente outras operações relacionadas à autenticação, como registro, recuperação de senha, etc.
+- **auth**: Contém os controladores e serviços responsáveis pela autenticação do usuário. Aqui fica a lógica para lidar com o login e outras operações relacionadas à autenticação, como registro, recuperação de senha, etc.
 
-- **movies**: Aqui reside a lógica para manipulação de filmes. Você implementou as operações CRUD (Create, Read, Update, Delete) seguindo os padrões do NestJS. Isso significa que tem controladores para manipular as solicitações HTTP relacionadas aos filmes e serviços para realizar as operações de banco de dados.
+- **movies**: Aqui reside a lógica para manipulação de filmes. Implementei as operações CRUD (Create, Read, Update, Delete) seguindo os padrões do NestJS. Isso significa que tem controladores para manipular as solicitações HTTP relacionadas aos filmes e serviços para realizar as operações de banco de dados.
 
-- **users**: Similar ao diretório movies, este é dedicado à manipulação de usuários. Você implementou todas as operações CRUD para lidar com dados de usuário.
+- **users**: Similar ao diretório movies, este é dedicado à manipulação de usuários. Implementei todas as operações CRUD para lidar com dados de usuário.
 
 ## Módulos
 
@@ -41,12 +41,12 @@ A arquitetura do sistema é composta por uma aplicação back-end que provê uma
 - **auth.module.ts**: Gerencia tudo relacionado à autenticação.
 - **auth.controller.ts**: Controla as solicitações de autenticação dos usuários.
 - **auth.service.ts**: Aqui está a lógica real da autenticação.
-- **jwt.strategy.ts**: Define como vamos verificar se um usuário está autenticado ou não usando tokens.
+- **auth.guard.ts**: Define como vamos verificar se um usuário está autenticado ou não usando tokens.
 
 ### Filmes (Movies)
 
 - **movies.module.ts**: Gerencia tudo relacionado aos filmes.
-- **movies.controller.ts**: Controla as solicitações de filmes, como adicionar ou excluir filmes.
+- **movies.controller.ts**: Controla as solicitações de filmes, como adicionar, obter listagem, atulziar e excluir filmes.
 - **movies.service.ts**: Aqui está a lógica real dos filmes, como adicionar ou buscar filmes no banco de dados.
 - **movie.entity.ts**: Define como os dados de um filme são armazenados.
 - **movie.repository.ts**: Interage com o banco de dados para buscar, adicionar ou excluir filmes.
@@ -54,7 +54,7 @@ A arquitetura do sistema é composta por uma aplicação back-end que provê uma
 ### Usuários (Users)
 
 - **users.module.ts**: Gerencia tudo relacionado aos usuários.
-- **users.controller.ts**: Controla as solicitações de usuários, como criar ou excluir usuários.
+- **users.controller.ts**: Controla as solicitações de usuários, como adicionar, obter listagem, atulziar e excluir usuários.
 - **users.service.ts**: Aqui está a lógica real dos usuários, como criar ou autenticar usuários.
 - **user.entity.ts**: Define como os dados do usuário são armazenados.
 - **user.repository.ts**: Interage com o banco de dados para buscar, adicionar ou excluir usuários.
