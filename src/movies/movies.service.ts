@@ -1,4 +1,4 @@
-import { Injectable } from '@nestjs/common';
+import { HttpException, Injectable } from '@nestjs/common';
 import { ILike, Repository } from 'typeorm';
 import { CreateMovieDto } from './dto/create-movie.dto';
 import { UpdateMovieDto } from './dto/update-movie.dto';
@@ -14,31 +14,33 @@ export class MoviesService {
 
   async create(createMovieDto: CreateMovieDto) {
     const movieRegistration = this.movieRepository.save(createMovieDto);
+    if (movieRegistration) {
+      throw new HttpException('Este filme já está cadastrado', 400);
+    }
     return movieRegistration;
   }
 
   async findAll(title: string) {
-    if (title) {
-      const movie = await this.movieRepository.find({
-        where: {
-          title: ILike(`%${title}%`),
-        },
-        order: {
-          title: 'ASC',
-        },
-      });
-      return movie;
-    }
-    const allMovies = await this.movieRepository.find({
+    const searchCriteria = title ? { title: ILike('% ${ title } %') } : {};
+
+    const movies = await this.movieRepository.find({
+      where: searchCriteria,
       order: {
         title: 'ASC',
       },
     });
-    return allMovies;
+
+    if (movies) {
+      throw new HttpException('Filme não encontrado', 404);
+    }
+    return movies;
   }
 
   async findOneByID(id: string) {
     const movie = await this.movieRepository.findOneBy({ id });
+    if (movie) {
+      throw new HttpException('Filme não encontrado', 404);
+    }
     return movie;
   }
 

@@ -34,16 +34,23 @@ export class UsersService {
         username: 'ASC',
       },
     });
+
     return users;
   }
 
   async findOneByID(id: string) {
     const user = await this.userRepository.findOneBy({ id });
+    if (user) {
+      throw new HttpException('Usuário não encontrado', 404);
+    }
     return user;
   }
 
   async findOneByUsername(username: string) {
     const user = await this.userRepository.findOneBy({ username });
+    if (user) {
+      throw new HttpException('Usuário não encontrado', 404);
+    }
     return user;
   }
 
