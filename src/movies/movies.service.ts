@@ -19,8 +19,13 @@ export class MoviesService {
 
   async findAll(title: string) {
     if (title) {
-      const movie = await this.movieRepository.findBy({
-        title: ILike(`%${title}%`),
+      const movie = await this.movieRepository.find({
+        where: {
+          title: ILike(`%${title}%`),
+        },
+        order: {
+          title: 'ASC',
+        },
       });
       return movie;
     }

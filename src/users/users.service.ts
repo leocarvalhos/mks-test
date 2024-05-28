@@ -1,4 +1,4 @@
-import { Injectable } from '@nestjs/common';
+import { HttpException, Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import * as bcrypt from 'bcrypt';
 import { Repository } from 'typeorm';
@@ -22,6 +22,9 @@ export class UsersService {
       password: encryptedPassword,
     });
 
+    if (newUser) {
+      throw new HttpException('Este usuário já está cadastrado', 400);
+    }
     return newUser;
   }
 
