@@ -88,13 +88,14 @@ A arquitetura do sistema é composta por uma aplicação back-end que provê uma
 
 2. Crie e configure com as variáveis de ambiente no arquivo `.env` com os dados abaixo:
    ```bash
-   POSTGRES_HOST=localhost
-   POSTGRES_PORT=5432
    POSTGRES_USER=postgres
-   POSTGRES_PASSWORD=postgres
-   POSTGRES_DB=postgres
+   DB_HOST=postgres
+   DB_NAME=postgres
+   DB_PASS=postgres
+   DB_PORT=5432
+   DB_USERNAME=postgres
    JWT_PASS=XASZDSAFXCASDSAsadas233412312s@@112
-   REDIS_HOST=localhost
+   REDIS_HOST=redis
    REDIS_PORT=6379
    ```
 3. Execute o Docker Compose para executar o projeto no seu localhost:
