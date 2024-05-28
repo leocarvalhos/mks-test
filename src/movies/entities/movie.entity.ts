@@ -5,7 +5,7 @@ export class Movie {
   @PrimaryGeneratedColumn('uuid')
   id: string;
 
-  @Column({ length: 150 })
+  @Column({ length: 150, unique: true })
   title: string;
 
   @Column('text')

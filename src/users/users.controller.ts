@@ -1,20 +1,20 @@
+import { CacheInterceptor, CacheTTL } from '@nestjs/cache-manager';
 import {
   Body,
   Controller,
   Delete,
   Get,
   Param,
+  Patch,
   Post,
-  Put,
   UseGuards,
   UseInterceptors,
 } from '@nestjs/common';
 import { ApiOperation, ApiResponse } from '@nestjs/swagger';
+import { AuthGuard } from 'src/auth/auth.guard';
 import { CreateUserDto } from './dto/create-user.dto';
 import { UpdateUserDto } from './dto/update-user.dto';
 import { UsersService } from './users.service';
-import { AuthGuard } from 'src/auth/auth.guard';
-import { CacheInterceptor, CacheTTL } from '@nestjs/cache-manager';
 
 @Controller('users')
 export class UsersController {
@@ -59,7 +59,7 @@ export class UsersController {
     return this.usersService.findOneByID(id);
   }
 
-  @Put(':id')
+  @Patch(':id')
   @UseGuards(AuthGuard)
   @ApiOperation({ summary: 'Atualizar um usuário por ID' })
   @ApiResponse({
