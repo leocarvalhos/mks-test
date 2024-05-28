@@ -44,7 +44,8 @@ export class UsersService {
     if (updateUserDto.password) {
       updateUserDto.password = await bcrypt.hash(updateUserDto.password, 10);
     }
-    const userUpdate = await this.update(id, updateUserDto);
+
+    const userUpdate = await this.userRepository.update(id, updateUserDto);
 
     return userUpdate;
   }
